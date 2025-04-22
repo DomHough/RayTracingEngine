@@ -6,12 +6,18 @@
 #include <SFML/Graphics.hpp>
 
 int main() {
-    Transformation camera_transformation(Vec3(0, 0, -50), Rotation(0, 0, 0), Vec3(1, 1, 1));
+    Transformation camera_transformation(Vec3(0, 0, 0), Rotation(0, 0, 0), Vec3(1, 1, 1));
     Camera my_cam(camera_transformation, 256, 256, 90);
 
-    Transformation sphere_transformation(Vec3(0,0,-100), Rotation(0, 0, 0), Vec3(1, 1, 1));
-    Sphere my_sphere(sphere_transformation, 10, RGB(255, 0, 0));
-    Scene my_scene(my_cam, my_sphere);
+    Transformation sphere_1_transformation(Vec3(10,0,-50), Rotation(0, 0, 0), Vec3(1, 1, 1));
+    Transformation sphere_2_transformation(Vec3(-10,0,-50), Rotation(0, 0, 0), Vec3(1, 1, 1));
+
+    Sphere sphere1(sphere_1_transformation, 10, RGB(255, 0, 0));
+    Sphere sphere2(sphere_2_transformation, 10, RGB(0, 255, 0));
+
+
+    std::vector<Sphere> spheres = {sphere1, sphere2};
+    Scene my_scene(my_cam, spheres);
     Image my_img = my_scene.render();
     sf::Image sfml_img = my_img.renderToSFML();
 
