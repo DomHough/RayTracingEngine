@@ -12,9 +12,9 @@
 
 class Scene {
 public:
-    Scene(Camera camera, Sphere sphere);
+    Scene(Camera camera, std::vector<Sphere> spheres);
     Camera camera;
-    Sphere sphere;
+    std::vector<Sphere> spheres;
     Image render() const;
 
 

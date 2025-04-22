@@ -6,8 +6,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-Scene::Scene(Camera camera, Sphere sphere)
-    : camera(camera), sphere(sphere) {}
+Scene::Scene(Camera camera, std::vector<Sphere> spheres)
+    : camera(camera), spheres(spheres) {}
 
 Image Scene::render() const {
     Image image(camera.resolutionX, camera.resolutionY);
@@ -15,20 +15,20 @@ Image Scene::render() const {
     for (int y = 0; y < camera.resolutionY; ++y) {
         for (int x = 0; x < camera.resolutionX; ++x) {
             // Generate ray from camera to pixel
-            Ray ray = camera.generateRay(x, y);
+            Ray cameraSpaceRay = camera.generateRay(x, y);
 
             // convert ray to world space
-            ray = camera.transformation.objectToWorld(ray);
+            Ray worldSpaceRay = camera.transformation.objectToWorld(cameraSpaceRay);
 
-            // convert ray to object space
-            ray = sphere.transformation.worldToObject(ray);
+            // loop through spheres
+            for (const Sphere& sphere : spheres) {
+                // convert sphere to world space
+                Ray sphereSpaceray = sphere.transformation.worldToObject(worldSpaceRay);
 
-
-            // Check intersection with sphere
-            if (sphere.rayIntersect(ray)) {
-                image.setPixel(x, y, sphere.color); // Set pixel color to red if intersected
-            } else {
-                image.setPixel(x, y, RGB(0,0,0)); // Set pixel color to black if not intersected
+                // Check intersection with sphere
+                if (sphere.rayIntersect(sphereSpaceray)) {
+                    image.setPixel(x, y, sphere.color); // Set pixel color to red if intersected
+                }
             }
         }
     }
