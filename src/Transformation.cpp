@@ -2,7 +2,7 @@
 // Created by domho on 21/04/2025.
 //
 
-#include "../include/Transformation.h"
+#include "Transformation.h"
 
 Transformation::Transformation(Vec3 translation, Rotation rotation, Vec3 scale)
     : translation(translation), rotation(rotation), scale(scale) {}
@@ -37,14 +37,24 @@ Matrix4x4 Transformation::getRotationMatrix() const {
     return Matrix4x4::rotation(rotation);
 }
 
-Ray Transformation::worldToObject(const Ray& ray) const {
+OriginRay Transformation::worldToObject(const OriginRay& ray) const {
     Vec3 origin = inverse().getTranslationMatrix() * ray.origin;
     Vec3 direction = inverse().getRotationMatrix() * ray.direction;
-    return Ray(origin, direction);
+    return OriginRay(origin, direction);
 }
 
-Ray Transformation::objectToWorld(const Ray& ray) const {
+SegmentRay Transformation::worldToObject(const SegmentRay& ray) const {
+    Vec3 origin = inverse().getTranslationMatrix() * ray.origin;
+    Vec3 end = inverse().getTranslationMatrix() * ray.end;
+    return SegmentRay(origin, end);
+}
+
+OriginRay Transformation::objectToWorld(const OriginRay& ray) const {
     Vec3 origin = getTranslationMatrix() * ray.origin;
     Vec3 direction = getRotationMatrix() * ray.direction;
-    return Ray(origin, direction);
+    return OriginRay(origin, direction);
+}
+
+Vec3 Transformation::objectToWorld(const Vec3& point) const {
+    return getTranslationMatrix() * point;
 }

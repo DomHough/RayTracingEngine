@@ -6,9 +6,10 @@
 #define TRANSFORMATION_H
 
 #include "Matrix4x4.h"
-#include "Ray.h"
+#include "Rays/OriginRay.h"
 #include "Vec3.h"
 #include "Rotation.h"
+#include "Rays/SegmentRay.h"
 
 
 class Transformation {
@@ -26,7 +27,11 @@ public:
     Matrix4x4 getTranslationMatrix() const;
     Matrix4x4 getRotationMatrix() const;
 
-    Ray worldToObject(const Ray& ray) const;
-    Ray objectToWorld(const Ray& ray) const;
+    OriginRay worldToObject(const OriginRay& ray) const;
+    SegmentRay worldToObject(const SegmentRay& ray) const;
+
+    OriginRay objectToWorld(const OriginRay& ray) const;
+    SegmentRay objectToWorld(const SegmentRay& ray) const;
+    Vec3 objectToWorld(const Vec3& point) const;
 };
 #endif //TRANSFORMATION_H
