@@ -7,14 +7,20 @@
 #include "Camera.h"
 #include "Image.h"
 #include "Sphere.h"
+#include "Lighting/PointLight.h"
 #include <SFML/Graphics.hpp>
+
+#include "Lighting/AmbientLight.h"
 
 
 class Scene {
 public:
-    Scene(Camera camera, std::vector<Sphere> spheres);
     Camera camera;
     std::vector<Sphere> spheres;
+    std::vector<PointLight> lights;
+    AmbientLight ambientLight;
+    Scene(Camera camera, std::vector<Sphere> spheres, std::vector<PointLight> lights, AmbientLight ambientLight);
+
     Image render() const;
 
 
