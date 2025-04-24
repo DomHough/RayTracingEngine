@@ -4,7 +4,7 @@
 
 #ifndef CAMERA_H
 #define CAMERA_H
-#include "Ray.h"
+#include "Rays/OriginRay.h"
 #include "Transformation.h"
 
 
@@ -17,7 +17,7 @@ public:
 
     Camera(Transformation transformation, unsigned int resolutionX, unsigned int resolutionY, float hfov);
 
-    Ray generateRay(int x, int y) const;
+    OriginRay generateRay(int x, int y) const;
 };
 
 
