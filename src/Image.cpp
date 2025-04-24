@@ -1,7 +1,7 @@
 //
 // Created by domho on 18/04/2025.
 //
-#include "../include/Image.h"
+#include "Image.h"
 
 Image::Image(const unsigned int width, const unsigned int height) :
     width(width),

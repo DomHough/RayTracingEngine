@@ -2,8 +2,8 @@
 // Created by domho on 18/04/2025.
 //
 
-#include "../include/Matrix4x4.h"
-#include "../include/Transformation.h"
+#include "Matrix4x4.h"
+#include "Transformation.h"
 
 #include <cmath>
 
