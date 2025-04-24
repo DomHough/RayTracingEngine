@@ -3,7 +3,7 @@
 //
 #include <cmath>
 
-#include "../include/Vec3.h"
+#include "Vec3.h"
 
 Vec3::Vec3(float x, float y, float z) : x(x), y(y), z(z) {}
 
@@ -17,12 +17,12 @@ Vec3 Vec3::operator*(float i) const {
 Vec3 Vec3::operator*(const Vec3& other) const {
     return Vec3(x * other.x, y * other.y, z * other.z);
 }
-Vec3 operator*(float i, Vec3& v) {
+Vec3 operator*(float i, const Vec3& v) {
     return Vec3(v.x * i, v.y * i, v.z * i);
 }
 
 Vec3 Vec3::operator-(const Vec3& other) const {
-    return Vec3(-other.x, -other.y, -other.z);
+    return Vec3(x-other.x, y-other.y, z-other.z);
 }
 
 std::ostream& operator<<(std::ostream& os, const Vec3& v) {
@@ -38,7 +38,11 @@ float Vec3::squaredLength() const {
     return x*x + y*y + z*z;
 }
 
-Vec3 Vec3::normalise() const {
+float Vec3::length() const {
+    return sqrt(squaredLength());
+}
+
+Vec3 Vec3::normalize() const {
     float length = sqrt(squaredLength());
     if (length == 0) {
         return Vec3(0, 0, 0); // Avoid division by zero

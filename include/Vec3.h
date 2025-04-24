@@ -18,7 +18,7 @@ public:
 
     Vec3 operator*(float i) const;
     Vec3 operator*(const Vec3& other) const;
-    friend Vec3 operator*(float i, Vec3& v);
+    friend Vec3 operator*(float i, const Vec3& v);
 
     Vec3 operator-(const Vec3& other) const;
 
@@ -26,8 +26,9 @@ public:
 
     float dot(const Vec3& other) const;
     float squaredLength() const;
+    float length() const;
 
-    Vec3 normalise() const;
+    Vec3 normalize() const;
 
 
 
